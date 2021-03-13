@@ -17,6 +17,12 @@ def analyze_sentence(s):
             word_count[j] = 1 	# initialize first count of word to 1
     return word_count
 
+def dict_to_list(wc):
+    wc_list = [] 
+    for k,v in wc.items():
+        wc_list.append((v,k))  	# list in (v,k) order to allow sorting later
+    return wc_list
+
 
 # Main code
 s = "the clown ran after the car and the car ran into the tent and the tent\
@@ -25,11 +31,11 @@ print("We will evaluate the following sentence: ")
 print(s)
 
 word_count = {} # initialize dictionary
-word_list =[]   # initialize list of dictionary tuples
 
 word_count = analyze_sentence(s)
 
-# print all entries
+word_list = dict_to_list(word_count)
+
 for k,v in word_count.items():
     word_list.append((v,k))  	# swap dictionary k,v order to list v,k order to allow sorting
 
