@@ -10,12 +10,13 @@ def get_sentence():
     return s
 
 def analyze_sentence(s):
+    wc = {}
     for j in s.split():
-        if j in word_count.keys():
-            word_count[j] += 1	# increment existing word count
+        if j in wc.keys():
+            wc[j] += 1	# increment existing word count
         else:
-            word_count[j] = 1 	# initialize first count of word to 1
-    return word_count
+            wc[j] = 1 	# initialize first count of word to 1
+    return wc
 
 def dict_to_list(wc):
     wc_list = [] 
@@ -24,24 +25,26 @@ def dict_to_list(wc):
     return wc_list
 
 
-# Main code
-s = "the clown ran after the car and the car ran into the tent and the tent\
+def main():
+    s = "the clown ran after the car and the car ran into the tent and the tent\
  fell down on the clown and the car"
-print("We will evaluate the following sentence: ")
-print(s)
+    print("We will evaluate the following sentence: ")
+    print(s)
+    
+    word_count = analyze_sentence(s)
+    
+    word_list = dict_to_list(word_count)
+    
+    for k,v in word_count.items():
+        word_list.append((v,k))  	# swap dictionary k,v order to list v,k order to allow sorting
+    
+    word_list.sort()   	# sort list numerically by v
+    most_common_entry = word_list[-1] 	# largest count is last entry in list
+    
+    (v,k) = most_common_entry
+    print("Most common word is {}. It occurred {} times.".format(k, v))
+    
 
-word_count = {} # initialize dictionary
-
-word_count = analyze_sentence(s)
-
-word_list = dict_to_list(word_count)
-
-for k,v in word_count.items():
-    word_list.append((v,k))  	# swap dictionary k,v order to list v,k order to allow sorting
-
-word_list.sort()   	# sort list numerically by v
-most_common_entry = word_list[-1] 	# largest count is last entry in list
-
-(v,k) = most_common_entry
-print("Most common word is {}. It occurred {} times.".format(k, v))
-
+# Main code
+if __name__ == "__main__":
+    main()
